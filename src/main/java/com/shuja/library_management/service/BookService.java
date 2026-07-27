@@ -36,6 +36,20 @@ public class BookService {
         );
     }
 
+    public List<BookResponseDTO> getAllBooks(){
+
+        List<Book> books = bookRepository.findAll();
+
+        List<BookResponseDTO> dtoList = new ArrayList<>();
+
+        for (Book book : books){
+            dtoList.add(convertToDTO(book));
+        }
+
+        return dtoList;
+
+    }
+
 
 
 }
