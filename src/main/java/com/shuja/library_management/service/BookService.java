@@ -52,7 +52,7 @@ public class BookService {
 
     public BookResponseDTO getBookById(Integer id){
         Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Book not found"));
+                .orElseThrow(() -> new BookNotFoundException("Book ID" + id + "not found"));
 
         return convertToDTO(book);
     }
