@@ -27,6 +27,15 @@ public class BookService {
 
     }
 
+    private BookResponseDTO convertToDTO(Book book){
+        return new BookResponseDTO(
+                book.getId(),
+                book.getTitle(),
+                book.getIsbn(),
+                book.getAuthor().getName()
+        );
+    }
+
 
 
 }
