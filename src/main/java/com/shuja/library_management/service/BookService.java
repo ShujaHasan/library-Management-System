@@ -7,6 +7,7 @@ import com.shuja.library_management.model.Author;
 import com.shuja.library_management.model.Book;
 import com.shuja.library_management.model.repository.AuthorRepository;
 import com.shuja.library_management.model.repository.BookRepository;
+import mapper.BookMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,10 +15,12 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
+    private final BookMapper bookMapper;
 
-    public BookService(BookRepository bookRepository, AuthorRepository authorRepository) {
+    public BookService(BookRepository bookRepository, AuthorRepository authorRepository, BookMapper bookMapper) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
+        this.bookMapper = bookMapper;
     }
 
 
@@ -37,7 +40,7 @@ public class BookService {
         Book savedBook = bookRepository.save(book);
 
         // 6 & 7. Convert the saved entity into a BookResponseDTO and return it
-        return convertToDTO(savedBook);
+        return bookMapper.toDTO(savedBook);
 
     }
 
@@ -54,13 +57,7 @@ public class BookService {
 
         List<Book> books = bookRepository.findAll();
 
-        List<BookResponseDTO> dtoList = new ArrayList<>();
-
-        for (Book book : books){
-            dtoList.add(convertToDTO(book));
-        }
-
-        return dtoList;
+        return bookMapper.toDTOList(books);
 
     }
 
