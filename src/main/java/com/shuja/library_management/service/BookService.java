@@ -69,6 +69,23 @@ public class BookService {
     }
 
 
+    public BookResponseDTO updateBook(Integer id, BookRequestDTO dto){
+
+        Book book = bookRepository.findById(id)
+                .orElseThrow(()-> new BookNotFoundException("Book not found"));
+
+        Author author = authorRepository.findById(dto.getAuthorId())
+                .orElseThrow(()-> new AuthorNotFoundException("Author not found"));
+
+        bookMapper.updateBookFromDTO(dto, book);
+
+        book.setAuthor(author);
+
+        Book updatedBook = bookRepository.save(book);
+
+        return bookMapper.toDTO(updatedBook);
+
+    }
 
 
 
