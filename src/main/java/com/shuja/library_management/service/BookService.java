@@ -1,5 +1,8 @@
 package com.shuja.library_management.service;
 
+import com.shuja.library_management.dto.BookRequestDTO;
+import com.shuja.library_management.dto.BookResponseDTO;
+import com.shuja.library_management.exception.BookNotFoundException;
 import com.shuja.library_management.model.Author;
 import com.shuja.library_management.model.Book;
 import com.shuja.library_management.model.repository.AuthorRepository;
@@ -18,12 +21,23 @@ public class BookService {
     }
 
 
-    public Book addBooks(Book books){
-        Author author = authorRepository.findById(books.getAuthor().getId())
-                .orElseThrow(()-> new RuntimeException("Author ID" + books.getAuthor().getId() + " does not exist!"));
+    public BookResponseDTO addBook(BookRequestDTO dto){
+        Author author = authorRepository.findById(dto.getAuthorId())
+                .orElseThrow(()-> new RuntimeException("Author ID" + dto.getAuthorId() + " does not exist!"));
 
-        books.setAuthor(author);
-        return bookRepository.save(books);
+        Book book = new Book();
+
+        book.setTitle(dto.getTitle());
+        book.setIsbn(dto.getIsbn());
+
+        // 4. Set the managed Author relationship
+        book.setAuthor(author);
+
+        // 5. Save the Book entity to the database
+        Book savedBook = bookRepository.save(book);
+
+        // 6 & 7. Convert the saved entity into a BookResponseDTO and return it
+        return convertToDTO(savedBook);
 
     }
 
