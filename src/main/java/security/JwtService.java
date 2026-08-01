@@ -35,6 +35,29 @@ public class JwtService {
                 .compact();
     }
 
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    private <T> T extractClaim(String token, Function<Claims, T> resolver){
+            Claims claims = extractAllClaims(token);
+            return resolver.apply(claims);
+        }
+    }
+
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    public String extractExpiration(String token){
+        return extractClaim(token, Claims::getExpiration);
+    }
+
+
 
 
 
