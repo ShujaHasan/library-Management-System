@@ -1,11 +1,15 @@
 package security;
 
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+
+import java.util.Date;
 
 import static io.jsonwebtoken.security.Keys.hmacShaKeyFor;
 
@@ -21,6 +25,12 @@ public class JwtService {
     private SecretKey getSigningKey(){
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
+
+    public String generateToken(UserDetails userDetails){
+
+    }
+
+
 
 
 }
