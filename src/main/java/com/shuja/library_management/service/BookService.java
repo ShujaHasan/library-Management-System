@@ -2,13 +2,16 @@ package com.shuja.library_management.service;
 
 import com.shuja.library_management.dto.BookRequestDTO;
 import com.shuja.library_management.dto.BookResponseDTO;
+import com.shuja.library_management.exception.AuthorNotFoundException;
 import com.shuja.library_management.exception.BookNotFoundException;
 import com.shuja.library_management.model.Author;
 import com.shuja.library_management.model.Book;
 import com.shuja.library_management.model.repository.AuthorRepository;
 import com.shuja.library_management.model.repository.BookRepository;
-import mapper.BookMapper;
+import com.shuja.library_management.mapper.BookMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class BookService {
@@ -26,12 +29,15 @@ public class BookService {
 
     public BookResponseDTO addBook(BookRequestDTO dto){
         Author author = authorRepository.findById(dto.getAuthorId())
-                .orElseThrow(()-> new RuntimeException("Author ID" + dto.getAuthorId() + " does not exist!"));
+                .orElseThrow(()-> new AuthorNotFoundException("Author ID" + dto.getAuthorId() + " does not exist!"));
 
         Book book = new Book();
 
         book.setTitle(dto.getTitle());
         book.setIsbn(dto.getIsbn());
+        book.setAvailableCopies(dto.getAvailableCopies());
+        book.setPrice(dto.getPrice());
+        book.setPublicationYear(dto.getPublicationYear());
 
         // 4. Set the managed Author relationship
         book.setAuthor(author);
@@ -45,11 +51,17 @@ public class BookService {
     }
 
     private BookResponseDTO convertToDTO(Book book){
+
+        String authorName = null;
+        if (book.getAuthor() != null){
+            authorName = book.getAuthor().getName();
+        }
+
         return new BookResponseDTO(
                 book.getId(),
                 book.getTitle(),
                 book.getIsbn(),
-                book.getAuthor().getName()
+                authorName
         );
     }
 

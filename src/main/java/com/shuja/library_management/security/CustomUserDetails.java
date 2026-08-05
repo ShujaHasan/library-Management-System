@@ -1,4 +1,4 @@
-package security;
+package com.shuja.library_management.security;
 
 import com.shuja.library_management.model.User;
 import org.springframework.security.core.GrantedAuthority;

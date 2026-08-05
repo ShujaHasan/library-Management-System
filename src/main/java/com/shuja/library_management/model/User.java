@@ -1,6 +1,4 @@
 package com.shuja.library_management.model;
-
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 @Entity

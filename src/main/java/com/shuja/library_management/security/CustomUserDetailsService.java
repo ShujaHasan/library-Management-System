@@ -1,9 +1,11 @@
-package security;
+package com.shuja.library_management.security;
 
 import com.shuja.library_management.model.repository.UserRepository;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 import com.shuja.library_management.exception.UsernameNotFoundException;
+import com.shuja.library_management.model.User;
+
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {

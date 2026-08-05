@@ -1,6 +1,5 @@
-package security;
+package com.shuja.library_management.security;
 
-import com.shuja.library_management.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

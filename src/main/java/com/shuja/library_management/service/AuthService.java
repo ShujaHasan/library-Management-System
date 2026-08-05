@@ -13,7 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import security.JwtService;
+import com.shuja.library_management.security.JwtService;
 
 @Service
 public class AuthService {
@@ -45,9 +45,9 @@ public class AuthService {
             throw new UsernameAlreadyExistsException("Username already exists.");
         }
 
-        String encodedPassword = passwordEncoder.encode(dto.getPassword());
-
         User user = new User();
+
+        String encodedPassword = passwordEncoder.encode(dto.getPassword());
 
         user.setUsername(dto.getUsername());
         user.setPassword(encodedPassword);

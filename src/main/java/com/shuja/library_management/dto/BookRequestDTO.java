@@ -19,7 +19,7 @@ public class BookRequestDTO {
     @Positive(message = "Price must be positive")
     private double price;
 
-    
+
     @PositiveOrZero(message = "Available copies cannot be negative")
     private int availableCopies;
 
@@ -39,5 +39,51 @@ public class BookRequestDTO {
         this.authorId = authorId;
     }
 
+    public String getTitle() {
+        return title;
+    }
 
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public int getAvailableCopies() {
+        return availableCopies;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public Integer getAuthorId() {
+        return authorId;
+    }
+
+    public Integer getPublicationYear() {
+        return publicationYear;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPublicationYear(Integer publicationYear) {
+        this.publicationYear = publicationYear;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setAvailableCopies(int availableCopies) {
+        this.availableCopies = availableCopies;
+    }
+
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
+    }
 }

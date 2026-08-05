@@ -1,4 +1,4 @@
-package mapper;
+package com.shuja.library_management.mapper;
 
 import com.shuja.library_management.dto.BookRequestDTO;
 import com.shuja.library_management.dto.BookResponseDTO;

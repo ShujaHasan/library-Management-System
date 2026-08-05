@@ -1,9 +1,8 @@
-package com.shuja.library_management.service;
+package com.shuja.library_management.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -13,22 +12,14 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.function.Function;
 
-import static io.jsonwebtoken.security.Keys.hmacShaKeyFor;
-
 @Service
 public class JwtService {
-
-    private final UserDetails userDetails;
 
     @Value("${jwt.secret}")
     private String secret;
 
     @Value("${jwt.expiration}")
     private long expiration;
-
-    public JwtService(UserDetails userDetails) {
-        this.userDetails = userDetails;
-    }
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
@@ -51,7 +42,7 @@ public class JwtService {
                     .getPayload();
         }
 
-        private <T> T extractClaim(String token, Function < Claims, T > resolver) {
+        private <T> T extractClaim(String token, Function<Claims, T> resolver) {
             Claims claims = extractAllClaims(token);
             return resolver.apply(claims);
         }

@@ -8,22 +8,13 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Book {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @NotBlank
     private String title;
-
-    @NotBlank
     private String isbn;
-
     private Integer publicationYear;
-
-    @Positive
     private double price;
-
-    @PositiveOrZero
     private int availableCopies;
 
     @ManyToOne
@@ -43,6 +34,10 @@ public class Book {
         this.availableCopies = availableCopies;
         this.author = author;
 
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
