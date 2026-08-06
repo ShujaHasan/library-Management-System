@@ -63,6 +63,11 @@ public class GlobalExceptionHandler {
                 .body(ex.getMessage());
     }
 
+    @ExceptionHandler(BookAlreadyBorrowedException.class)
+    public ResponseEntity<String> handleBookAlreadyBorrowedException(BookAlreadyBorrowedException ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ex.getMessage());
+    }
 
 
 
