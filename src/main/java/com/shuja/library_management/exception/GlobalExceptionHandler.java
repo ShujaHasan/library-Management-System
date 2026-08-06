@@ -57,6 +57,11 @@ public class GlobalExceptionHandler {
                 .body(ex.getMessage());
     }
 
+    @ExceptionHandler(BookUnavailableException.class)
+    public ResponseEntity<String> handleBookUnavailableException(BookUnavailableException ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ex.getMessage());
+    }
 
 
 
