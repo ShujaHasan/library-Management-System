@@ -40,6 +40,15 @@ public class AuthorService {
         return convertToDTO(author);
     }
 
+
+
+
+    public AuthorResponseDTO convertToDTO(Author author){
+        return new AuthorResponseDTO(
+                author.getName(),
+                author.getEmail(),
+                author.getCountry()
+        );
     }
 
 
