@@ -32,6 +32,15 @@ public class AuthorService {
         return convertToDTO(savedAuthor);
     }
 
+    public AuthorResponseDTO getAuthorById(Integer id){
+        Author author = authorRepository.findById(id)
+                .orElseThrow(()->
+                        new RuntimeException("Author not found"));
+
+        return convertToDTO(author);
+    }
+
+    }
 
 
 }
