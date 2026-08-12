@@ -40,7 +40,12 @@ public class AuthorService {
         return convertToDTO(author);
     }
 
-
+    public List<AuthorResponseDTO> getAllAuthors(){
+        return authorRepository.findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
 
 
     public AuthorResponseDTO convertToDTO(Author author){
