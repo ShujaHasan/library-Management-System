@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
-public class Author {
+public class    Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
