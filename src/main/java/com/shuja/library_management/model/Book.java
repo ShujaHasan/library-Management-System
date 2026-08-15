@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
+import java.util.List;
+
 @Entity
 public class Book {
 
@@ -21,6 +23,9 @@ public class Book {
     @JoinColumn(name = "author_id")
     @JsonIgnore
     private Author author;
+
+    @OneToMany(mappedBy = "book")
+    private List<BorrowRecord> borrowRecords;
 
     public Book(){}
 

@@ -1,7 +1,5 @@
 package com.shuja.library_management.dto;
 
-import jakarta.persistence.Column;
-
 public class UserResponseDTO {
 
     private Integer id;

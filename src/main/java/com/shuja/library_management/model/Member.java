@@ -1,12 +1,10 @@
 package com.shuja.library_management.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -19,14 +17,23 @@ public class Member {
 
     @Email(message = "Enter valid email address")
     @NotBlank(message = "Email cannot be empty")
+    @Column(nullable = false, unique = true)
     private String email;
 
     @NotBlank(message = "Phone Number cannot be empty!")
+    @Column(nullable = false)
     private String phone;
 
+    @NotBlank(message = "Address cannot be empty")
+    @Column(nullable = false)
     private String address;
 
+    @Column(nullable = false)
     private LocalDate membershipDate;
+
+    @OneToMany(mappedBy = "member")
+    private List<BorrowRecord> borrowRecords;
+
 
     public Member(){}
 
