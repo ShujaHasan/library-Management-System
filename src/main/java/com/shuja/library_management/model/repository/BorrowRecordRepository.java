@@ -5,6 +5,8 @@ import com.shuja.library_management.model.BorrowRecord;
 import com.shuja.library_management.model.BorrowStatus;
 import com.shuja.library_management.model.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 import java.util.Optional;
 
 public interface BorrowRecordRepository extends JpaRepository<BorrowRecord, Integer> {
@@ -19,6 +21,8 @@ public interface BorrowRecordRepository extends JpaRepository<BorrowRecord, Inte
             Integer bookId,
             BorrowStatus status
     );
+
+    List<BorrowRecord> findByStatus(BorrowStatus status);
 
 
 }

@@ -24,7 +24,7 @@ public class BorrowRecordController {
         return borrowRecordService.borrowBook(dto);
     }
 
-    @PostMapping("/return")
+    @PostMapping("/borrow/return")
     public ReturnBookResponseDTO returnBook(@RequestBody ReturnBookRequestDTO dto){
         return borrowRecordService.returnBook(dto);
     }
