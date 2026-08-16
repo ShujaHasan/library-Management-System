@@ -4,6 +4,8 @@ import com.shuja.library_management.model.Book;
 import com.shuja.library_management.model.BorrowRecord;
 import com.shuja.library_management.model.BorrowStatus;
 import com.shuja.library_management.model.Member;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -23,6 +25,14 @@ public interface BorrowRecordRepository extends JpaRepository<BorrowRecord, Inte
     );
 
     List<BorrowRecord> findByStatus(BorrowStatus status);
+
+    List<BorrowRecord> findByMemberId(Integer MemberId);
+
+    List<BorrowRecord> findByBookId(Integer bookId);
+
+    Page<BorrowRecord> findByMemberId(Integer memberId, Pageable pageable);
+
+    Page<BorrowRecord> findByBookId(Integer bookId, Pageable pageable);
 
 
 }
