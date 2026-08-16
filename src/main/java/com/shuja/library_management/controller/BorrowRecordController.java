@@ -1,14 +1,9 @@
 package com.shuja.library_management.controller;
 
-import com.shuja.library_management.dto.BorrowBookRequestDTO;
-import com.shuja.library_management.dto.BorrowRecordResponseDTO;
-import com.shuja.library_management.dto.ReturnBookRequestDTO;
-import com.shuja.library_management.dto.ReturnBookResponseDTO;
+import com.shuja.library_management.dto.*;
 import com.shuja.library_management.service.BorrowRecordService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class BorrowRecordController {
@@ -28,4 +23,33 @@ public class BorrowRecordController {
     public ReturnBookResponseDTO returnBook(@RequestBody ReturnBookRequestDTO dto){
         return borrowRecordService.returnBook(dto);
     }
+
+    @GetMapping("/member/{memberID}")
+    public BorrowHistoryResponseDTO getMemberHistory(
+            @PathVariable Integer memberId,
+
+            @RequestParam(defaultValue = "0")
+            int page,
+
+            @RequestParam(defaultValue = "10")
+            int size){
+
+        return borrowRecordService.getMemberHistory(memberId, page, size);
+    }
+
+    @GetMapping("/book/{bookId}")
+    public BorrowHistoryResponseDTO getBookHistory(
+            @PathVariable Integer bookId,
+
+            @RequestParam(defaultValue = "0")
+            int page,
+
+            @RequestParam(defaultValue = "10")
+            int size
+            ){
+
+        return borrowRecordService.getBookHistory(bookId, page, size);
+
+    }
+
 }
