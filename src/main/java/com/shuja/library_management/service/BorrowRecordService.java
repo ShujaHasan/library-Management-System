@@ -142,8 +142,6 @@ public class BorrowRecordService {
         Page<BorrowRecord> records = borrowRecordRepository.findByBookId(bookId, pageable);
 
         return convertToHistoryResponse(records);
-
-
     }
 
     private BorrowHistoryResponseDTO convertToHistoryResponse(
@@ -162,6 +160,30 @@ public class BorrowRecordService {
                 page.getTotalElements(),
                 page.getSize()
         );
+    }
+
+    public List<BorrowRecordResponseDTO> getActiveBorrowRecords(){
+        return borrowRecordRepository.findActiveBorrowRecords()
+                .stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
+
+    public List<BorrowRecordResponseDTO> getOverdueBorrowRecords(){
+        return borrowRecordRepository.findOverdueBorrowRecords()
+                .stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
+
+    public List<BorrowRecordResponseDTO> getMemberActiveBorrowRecords(Integer memberId){
+        memberRepository.findById(memberId)
+                .orElseThrow(()-> new RuntimeException("member not found!"));
+
+        return borrowRecordRepository.findActiveBorrowRecordsByMember(memberId)
+                .stream()
+                .map(this::convertToDTO)
+                .toList();
     }
 
 }
