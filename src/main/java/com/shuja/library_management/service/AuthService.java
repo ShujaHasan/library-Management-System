@@ -45,9 +45,9 @@ public class AuthService {
             throw new UsernameAlreadyExistsException("Username already exists.");
         }
 
-        User user = new User();
-
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
+
+        User user = new User();
 
         user.setUsername(dto.getUsername());
         user.setPassword(encodedPassword);
@@ -75,3 +75,4 @@ public class AuthService {
     }
 
 }
+

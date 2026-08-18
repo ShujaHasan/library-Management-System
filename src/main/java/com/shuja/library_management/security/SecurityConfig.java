@@ -32,12 +32,14 @@ public class SecurityConfig {
                         httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/books").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/books").hasRole("ADMIN")
-                        .requestMatchers(("/auth/**")).permitAll()
-                        .anyRequest().authenticated()
-                )
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers(HttpMethod.GET, "/books/**").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/books/**").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/member/**").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/author/**").permitAll()
+//                        .requestMatchers("/auth/**").permitAll()
+//                        .anyRequest().authenticated()
+//                )
 
                 .addFilterBefore(
                         jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class
@@ -52,8 +54,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)
-        throws Exception{
+    AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception{
         return configuration.getAuthenticationManager();
     }
 
