@@ -5,6 +5,8 @@ import com.shuja.library_management.service.BorrowRecordService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class BorrowRecordController {
 
@@ -50,6 +52,22 @@ public class BorrowRecordController {
 
         return borrowRecordService.getBookHistory(bookId, page, size);
 
+    }
+
+    @GetMapping("/active")
+    public List<BorrowRecordResponseDTO> getActiveBorrowRecords(){
+        return borrowRecordService.getActiveBorrowRecords();
+    }
+
+    @GetMapping("/overdue")
+    public List<BorrowRecordResponseDTO> getOverdueBorrowRecords() {
+
+        return borrowRecordService.getOverdueBorrowRecords();
+    }
+
+    @GetMapping("/member/{memberId}/active")
+    public List<BorrowRecordResponseDTO> getMemberActiveBorrowRecords(@PathVariable Integer memberId){
+        return borrowRecordService.getMemberActiveBorrowRecords(memberId);
     }
 
 }
