@@ -32,14 +32,32 @@ public class SecurityConfig {
                         httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers(HttpMethod.GET, "/books/**").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/books/**").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/member/**").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/author/**").permitAll()
-//                        .requestMatchers("/auth/**").permitAll()
-//                        .anyRequest().authenticated()
-//                )
+                .authorizeHttpRequests(auth -> auth
+                        // Authentication
+                        .requestMatchers("/auth/register","/auth/login").permitAll()
+
+                        // Public read acces
+                        .requestMatchers(HttpMethod.GET, "/books/**", "/author/**").permitAll()
+
+                        // Admin only book management
+                        .requestMatchers(HttpMethod.POST, "/books/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/books/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/books/**").hasRole("ADMIN")
+
+                        // Admin only author management
+                        .requestMatchers(HttpMethod.POST, "/authors/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/authors/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/authors/**").hasRole("ADMIN")
+
+                        // member management
+                        .requestMatchers("/member/**").hasRole("ADMIN")
+
+                        // dashboard
+                        .requestMatchers("/dashboard/**").hasRole("ADMIN")
+
+                        .requestMatchers("/borrow/**").hasAnyRole("USER", "ADMIN")
+                        .anyRequest().authenticated()
+                )
 
                 .addFilterBefore(
                         jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class
