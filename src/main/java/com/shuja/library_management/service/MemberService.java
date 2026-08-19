@@ -2,6 +2,7 @@ package com.shuja.library_management.service;
 
 import com.shuja.library_management.dto.MemberRequestDTO;
 import com.shuja.library_management.dto.MemberResponseDTO;
+import com.shuja.library_management.exception.MemberNotFoundException;
 import com.shuja.library_management.model.Member;
 import com.shuja.library_management.model.repository.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,7 @@ public class MemberService {
     public MemberResponseDTO getMemberById(Integer id){
         Member member = memberRepository.findById(id)
                 .orElseThrow(()->
-                        new RuntimeException("Member not found"));
+                        new MemberNotFoundException("Member Not Found"));
 
         return convertToDTo(member);
     }

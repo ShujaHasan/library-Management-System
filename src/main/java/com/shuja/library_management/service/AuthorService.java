@@ -2,6 +2,7 @@ package com.shuja.library_management.service;
 
 import com.shuja.library_management.dto.AuthorRequestDTO;
 import com.shuja.library_management.dto.AuthorResponseDTO;
+import com.shuja.library_management.exception.AuthorNotFoundException;
 import com.shuja.library_management.model.Author;
 import com.shuja.library_management.model.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class AuthorService {
     public AuthorResponseDTO getAuthorById(Integer id){
         Author author = authorRepository.findById(id)
                 .orElseThrow(()->
-                        new RuntimeException("Author not found"));
+                        new AuthorNotFoundException("Author not found"));
 
         return convertToDTO(author);
     }

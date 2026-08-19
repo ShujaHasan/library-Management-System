@@ -124,7 +124,7 @@ public class BorrowRecordService {
 
     public BorrowHistoryResponseDTO getMemberHistory(Integer memberId, int page, int size){
         memberRepository.findById(memberId)
-                .orElseThrow(()-> new RuntimeException("Member not found!"));
+                .orElseThrow(()-> new MemberNotFoundException("Member not found!"));
 
         Pageable pageable = PageRequest.of(page, size);
 
@@ -135,7 +135,7 @@ public class BorrowRecordService {
 
     public BorrowHistoryResponseDTO getBookHistory(Integer bookId, int page, int size){
         bookRepository.findById(bookId)
-                .orElseThrow(()-> new RuntimeException("Book not found"));
+                .orElseThrow(()-> new BookNotFoundException("Book not found"));
 
         Pageable pageable = PageRequest.of(page, size);
 
@@ -178,7 +178,7 @@ public class BorrowRecordService {
 
     public List<BorrowRecordResponseDTO> getMemberActiveBorrowRecords(Integer memberId){
         memberRepository.findById(memberId)
-                .orElseThrow(()-> new RuntimeException("member not found!"));
+                .orElseThrow(()-> new MemberNotFoundException("member not found!"));
 
         return borrowRecordRepository.findActiveBorrowRecordsByMember(memberId)
                 .stream()
